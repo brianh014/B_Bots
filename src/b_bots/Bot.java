@@ -7,6 +7,8 @@
 package b_bots;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  *
@@ -14,12 +16,14 @@ import java.awt.Point;
  */
 public class Bot {
     final int BOTSIZE = 14;
+    final int LIGHTSIZE = 20;
     final int SPEED = 1;
     final int WIDTH = 800;
     final int HEIGHT = 600;
     public double x;
     public double y;
     public double theta;
+    ArrayList lights = new ArrayList();
     
     /**
      * 
@@ -35,7 +39,34 @@ public class Bot {
     /**
      * Move bot
      */
-    public void updateBot(){
+    public void updateBot(ArrayList lights){
+        this.lights = lights;
+        
+        //locations for sensors 1 and 2
+        double s1x = x;
+        double s1y = y;
+        double s2x = (x + 2 * Math.cos(Math.toRadians(-theta)));
+        double s2y = (y + 2 * Math.sin(Math.toRadians(-theta)));
+        
+        //Inesity of light for sensor 1 and 2
+        double s1Intensity = 0;
+        double s2Intensity = 0;
+        
+        //get most intense light source for each sensor
+        for (ListIterator<Light> iter = lights.listIterator(); iter.hasNext(); ){
+                Light element = iter.next();
+                double temp = 100 / Point.distance(s1x, s1y, element.x+LIGHTSIZE/2, element.y+LIGHTSIZE/2);
+                if(temp > s1Intensity)
+                    s1Intensity = temp;
+                
+                temp = 100 / Point.distance(s2x, s2y, element.x+LIGHTSIZE/2, element.y+LIGHTSIZE/2);
+                if(temp > s2Intensity)
+                    s2Intensity = temp;
+        }
+        
+        //Determine theta based off s1 intensity and s2 intensity
+        theta = theta + 50*(s1Intensity - s2Intensity);
+              
         //Move bots based on speed and angle
         x = (x + SPEED * Math.cos(Math.toRadians(theta)));
         y = (y + SPEED * Math.sin(Math.toRadians(theta)));

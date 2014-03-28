@@ -364,7 +364,7 @@ public class Interface extends javax.swing.JFrame {
                 try{
                     for (ListIterator<Bot> iter = bots.listIterator(); iter.hasNext(); ){
                         Bot element = iter.next();
-                        element.updateBot();
+                        element.updateBot(lights);
                     }
                     RobotFrame.repaint();
                 }
