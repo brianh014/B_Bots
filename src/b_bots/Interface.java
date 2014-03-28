@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
  */
 public class Interface extends javax.swing.JFrame {
     
-    int tickrate = 30;
+    int TICKRATE = 10;
     Timer tick = new Timer();
     
     final int LIGHTSIZE = 20;
@@ -53,7 +53,7 @@ public class Interface extends javax.swing.JFrame {
             botToward = ImageIO.read(Interface.class.getResource("Bot_Toward.bmp"));
         }
         catch (IOException e) {System.out.println("Cant load bot img.");}
-        tick.scheduleAtFixedRate(new TickTask(), 0, tickrate);
+        tick.scheduleAtFixedRate(new TickTask(), 0, TICKRATE);
     }
 
     /**
@@ -79,8 +79,6 @@ public class Interface extends javax.swing.JFrame {
         numLightsField = new javax.swing.JTextField();
         ranLightsButton = new javax.swing.JButton();
         ranBotsButton = new javax.swing.JButton();
-        speedSlider = new javax.swing.JSlider();
-        speedLabel = new javax.swing.JLabel();
         towards = new javax.swing.JRadioButton();
         towards1 = new javax.swing.JRadioButton();
         agressionSlider = new javax.swing.JSlider();
@@ -178,19 +176,6 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        speedSlider.setMajorTickSpacing(20);
-        speedSlider.setMaximum(240);
-        speedSlider.setPaintTicks(true);
-        speedSlider.setValue(60);
-        speedSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                speedSliderStateChanged(evt);
-            }
-        });
-
-        speedLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        speedLabel.setText("Speed");
-
         tendencyGroup.add(towards);
         towards.setText("Towards Light");
 
@@ -253,13 +238,6 @@ public class Interface extends javax.swing.JFrame {
                             .addComponent(towards, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(towards1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(speedLabel)
-                                .addGap(10, 10, 10))
-                            .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -319,11 +297,7 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(removeBotButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pauseBots)
-                        .addGap(18, 18, 18)
-                        .addComponent(speedLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(90, 90, 90)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(resetBots)
                             .addComponent(resetLights))))
@@ -407,16 +381,6 @@ public class Interface extends javax.swing.JFrame {
         catch(NumberFormatException e){}
     }//GEN-LAST:event_ranBotsButtonActionPerformed
 
-    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
-        try{
-            tickrate = speedSlider.getValue() / 2;
-            tick.wait();
-            tick.cancel();
-            tick.scheduleAtFixedRate(new TickTask(), 0, tickrate);
-        }
-        catch (Exception e){}
-    }//GEN-LAST:event_speedSliderStateChanged
-
     private void resetBotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBotsActionPerformed
         bots.clear();
         RobotFrame.repaint();
@@ -480,8 +444,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JToggleButton removeLightButton;
     private javax.swing.JButton resetBots;
     private javax.swing.JButton resetLights;
-    private javax.swing.JLabel speedLabel;
-    private javax.swing.JSlider speedSlider;
     private javax.swing.ButtonGroup tendencyGroup;
     private javax.swing.JRadioButton towards;
     private javax.swing.JRadioButton towards1;
@@ -497,7 +459,7 @@ public class Interface extends javax.swing.JFrame {
                 try{
                     for (ListIterator<Bot> iter = bots.listIterator(); iter.hasNext(); ){
                         Bot element = iter.next();
-                        element.updateBot(lights, speedSlider.getValue());
+                        element.updateBot(lights);
                     }
                     RobotFrame.repaint();
                 }

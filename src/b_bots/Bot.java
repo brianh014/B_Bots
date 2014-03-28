@@ -19,6 +19,7 @@ public class Bot {
     final int LIGHTSIZE = 20;
     final int WIDTH = 800;
     final int HEIGHT = 600;
+    final int SPEED = 3;
     public double x;
     public double y;
     public double theta;
@@ -42,7 +43,7 @@ public class Bot {
     /**
      * Move bot
      */
-    public void updateBot(ArrayList lights, double speed){
+    public void updateBot(ArrayList lights){
         this.lights = lights;
         
         //locations for sensors 1 and 2
@@ -59,7 +60,7 @@ public class Bot {
         for (ListIterator<Light> iter = lights.listIterator(); iter.hasNext(); ){
                 Light element = iter.next();
                 double temp = 100 / Point.distance(s1x, s1y, element.x+LIGHTSIZE/2, element.y+LIGHTSIZE/2);
-                System.out.println(temp);
+
                 if(temp > 100)
                     temp = 100;
                 if(temp > s1Intensity)
@@ -75,16 +76,16 @@ public class Bot {
         //Determine theta based off s1 intensity and s2 intensity
         if(!tendency){
             //Move away from light
-            theta = theta + agression * (s1Intensity - s2Intensity);
+            theta = theta + agression/4 * (s1Intensity - s2Intensity);
         }
         else{
             //Move toward light
-            theta = theta + agression * (s2Intensity - s1Intensity);
+            theta = theta + agression/4 * (s2Intensity - s1Intensity);
         }
  
         //Move bots based on speed and angle
-        x = (x + speed/10 * Math.cos(Math.toRadians(theta)));
-        y = (y + speed/10 * Math.sin(Math.toRadians(theta)));
+        x = (x + SPEED * Math.cos(Math.toRadians(theta)));
+        y = (y + SPEED * Math.sin(Math.toRadians(theta)));
         
         //If out of bounds, move bot to according edge
         if(x+BOTSIZE < 0){
