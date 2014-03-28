@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
  */
 public class Interface extends javax.swing.JFrame {
     
-    final int TICKRATE = 5;
+    int TICKRATE = 5;
     Timer tick = new Timer();
     
     final int LIGHTSIZE = 20;
@@ -73,6 +73,8 @@ public class Interface extends javax.swing.JFrame {
         numLightsField = new javax.swing.JTextField();
         ranLightsButton = new javax.swing.JButton();
         ranBotsButton = new javax.swing.JButton();
+        speedSlider = new javax.swing.JSlider();
+        speedLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +166,14 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        speedSlider.setMajorTickSpacing(5);
+        speedSlider.setMaximum(60);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setValue(10);
+
+        speedLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        speedLabel.setText("Speed");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,7 +181,7 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(RobotFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lights_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bot_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -189,7 +199,11 @@ public class Interface extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(degreeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(numBotsField))
-                            .addComponent(numLightsField))))
+                            .addComponent(numLightsField)))
+                    .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(speedLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -223,7 +237,11 @@ public class Interface extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(removeBotButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pauseBots)))
+                        .addComponent(pauseBots)
+                        .addGap(109, 109, 109)
+                        .addComponent(speedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -352,6 +370,8 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton ranLightsButton;
     private javax.swing.JToggleButton removeBotButton;
     private javax.swing.JToggleButton removeLightButton;
+    private javax.swing.JLabel speedLabel;
+    private javax.swing.JSlider speedSlider;
     // End of variables declaration//GEN-END:variables
     
     /**
@@ -364,7 +384,8 @@ public class Interface extends javax.swing.JFrame {
                 try{
                     for (ListIterator<Bot> iter = bots.listIterator(); iter.hasNext(); ){
                         Bot element = iter.next();
-                        element.updateBot(lights);
+                        System.out.println(speedSlider.getValue());
+                        element.updateBot(lights, speedSlider.getValue());
                     }
                     RobotFrame.repaint();
                 }

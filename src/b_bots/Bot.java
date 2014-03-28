@@ -17,7 +17,6 @@ import java.util.ListIterator;
 public class Bot {
     final int BOTSIZE = 14;
     final int LIGHTSIZE = 20;
-    final int SPEED = 1;
     final int WIDTH = 800;
     final int HEIGHT = 600;
     public double x;
@@ -39,7 +38,7 @@ public class Bot {
     /**
      * Move bot
      */
-    public void updateBot(ArrayList lights){
+    public void updateBot(ArrayList lights, double speed){
         this.lights = lights;
         
         //locations for sensors 1 and 2
@@ -68,8 +67,8 @@ public class Bot {
         theta = theta + 50*(s1Intensity - s2Intensity);
               
         //Move bots based on speed and angle
-        x = (x + SPEED * Math.cos(Math.toRadians(theta)));
-        y = (y + SPEED * Math.sin(Math.toRadians(theta)));
+        x = (x + speed/10 * Math.cos(Math.toRadians(theta)));
+        y = (y + speed/10 * Math.sin(Math.toRadians(theta)));
         
         //If out of bounds, move bot to according edge
         if(x+BOTSIZE < 0){
