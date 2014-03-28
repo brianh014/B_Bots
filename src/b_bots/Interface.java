@@ -37,7 +37,8 @@ public class Interface extends javax.swing.JFrame {
     ArrayList bots = new ArrayList();
     
     int[] degrees = {0,45,90,135,180,225,270,315};
-    BufferedImage botpic = null;
+    BufferedImage botAway = null;
+    BufferedImage botToward = null;
     
     /**
      * Creates new form Interface
@@ -45,8 +46,12 @@ public class Interface extends javax.swing.JFrame {
     public Interface() {
         initComponents();
         try{
-            botpic = ImageIO.read(Interface.class.getResource("Bot.bmp"));
-        } 
+            botAway = ImageIO.read(Interface.class.getResource("Bot_Away.bmp"));
+        }
+        catch (IOException e) {System.out.println("Cant load bot img.");}
+        try{
+            botToward = ImageIO.read(Interface.class.getResource("Bot_Toward.bmp"));
+        }
         catch (IOException e) {System.out.println("Cant load bot img.");}
         tick.scheduleAtFixedRate(new TickTask(), 0, tickrate);
     }
@@ -524,7 +529,10 @@ public class Interface extends javax.swing.JFrame {
                 double locationY = botpic.getHeight() / 2;
                 AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
                 AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-                g2.drawImage(op.filter(botpic,null), (int)element.x-BOTSIZE/2, (int)element.y-BOTSIZE/2, null);
+                if(element.tendency)
+                    g2.drawImage(op.filter(botToward,null), (int)element.x-BOTSIZE/2, (int)element.y-BOTSIZE/2, null);
+                else
+                    g2.drawImage(op.filter(botAway,null), (int)element.x-BOTSIZE/2, (int)element.y-BOTSIZE/2, null);
             }
         }
 
