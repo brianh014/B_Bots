@@ -9,6 +9,7 @@ package b_bots;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.AffineTransformOp;
@@ -29,6 +30,8 @@ public class Interface extends javax.swing.JFrame {
     
     final int LIGHTSIZE = 20;
     final int BOTSIZE = 14;
+    final int HEIGHT = 600;
+    final int WIDTH = 800;
     
     ArrayList lights = new ArrayList();
     ArrayList bots = new ArrayList();
@@ -66,6 +69,10 @@ public class Interface extends javax.swing.JFrame {
         removeBotButton = new javax.swing.JToggleButton();
         pauseBots = new javax.swing.JCheckBox();
         degreeBox = new javax.swing.JComboBox();
+        ranLights = new javax.swing.JToggleButton();
+        ranBots = new javax.swing.JToggleButton();
+        numBotsField = new javax.swing.JTextField();
+        numLightsField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +121,7 @@ public class Interface extends javax.swing.JFrame {
 
         addBotButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addBotButton.setText("Add Bot");
+        addBotButton.setPreferredSize(new java.awt.Dimension(125, 25));
         addBotButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBotButtonActionPerformed(evt);
@@ -134,6 +142,29 @@ public class Interface extends javax.swing.JFrame {
         degreeBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         degreeBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "45", "90", "135", "180", "225", "270", "315", " ", " ", " ", " " }));
 
+        ranLights.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ranLights.setText("Random Lights");
+        ranLights.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ranLightsActionPerformed(evt);
+            }
+        });
+
+        ranBots.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ranBots.setText("Random Bots");
+        ranBots.setPreferredSize(new java.awt.Dimension(125, 25));
+        ranBots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ranBotsActionPerformed(evt);
+            }
+        });
+
+        numBotsField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numBotsField.setText("1");
+
+        numLightsField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        numLightsField.setText("1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,15 +176,21 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lights_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bot_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pauseBots)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(addLightButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(removeBotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(removeLightButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addBotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addLightButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(removeLightButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ranLights, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pauseBots)
+                            .addComponent(addBotButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ranBots, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(removeBotButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(degreeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(degreeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(numBotsField))
+                            .addComponent(numLightsField))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,14 +205,22 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(lights_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addLightButton)
-                        .addGap(11, 11, 11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ranLights)
+                            .addComponent(numLightsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(removeLightButton)
-                        .addGap(18, 18, 18)
+                        .addGap(42, 42, 42)
                         .addComponent(bot_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addBotButton)
+                            .addComponent(addBotButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(degreeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ranBots, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numBotsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(removeBotButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -232,6 +277,33 @@ public class Interface extends javax.swing.JFrame {
         RobotFrame.repaint();
     }//GEN-LAST:event_RobotFrameMouseReleased
 
+    private void ranLightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ranLightsActionPerformed
+        try{
+            for(int i = 0; i < Integer.parseInt(numLightsField.getText()); i++){
+                Random rand = new Random();
+                int x = rand.nextInt(WIDTH);
+                int y = rand.nextInt(HEIGHT);
+                lights.add(new Light(new Point(x,y)));
+            }
+            RobotFrame.repaint();
+        }
+        catch(NumberFormatException e){}
+    }//GEN-LAST:event_ranLightsActionPerformed
+
+    private void ranBotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ranBotsActionPerformed
+        try{
+            for(int i = 0; i < Integer.parseInt(numLightsField.getText()); i++){
+                Random rand = new Random();
+                int x = rand.nextInt(WIDTH);
+                int y = rand.nextInt(HEIGHT);
+                int t = rand.nextInt(259);
+                bots.add(new Bot(new Point(x,y),t));
+            }
+            RobotFrame.repaint();
+        }
+        catch(NumberFormatException e){}
+    }//GEN-LAST:event_ranBotsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -274,7 +346,11 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel bot_label;
     private javax.swing.JComboBox degreeBox;
     private javax.swing.JLabel lights_label;
+    private javax.swing.JTextField numBotsField;
+    private javax.swing.JTextField numLightsField;
     private javax.swing.JCheckBox pauseBots;
+    private javax.swing.JToggleButton ranBots;
+    private javax.swing.JToggleButton ranLights;
     private javax.swing.JToggleButton removeBotButton;
     private javax.swing.JToggleButton removeLightButton;
     // End of variables declaration//GEN-END:variables
