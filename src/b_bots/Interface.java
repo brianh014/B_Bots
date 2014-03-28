@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
  */
 public class Interface extends javax.swing.JFrame {
     
-    int TICKRATE = 5;
+    int tickrate = 30;
     Timer tick = new Timer();
     
     final int LIGHTSIZE = 20;
@@ -48,7 +48,7 @@ public class Interface extends javax.swing.JFrame {
             botpic = ImageIO.read(Interface.class.getResource("Bot.bmp"));
         } 
         catch (IOException e) {System.out.println("Cant load bot img.");}
-        tick.scheduleAtFixedRate(new TickTask(), 0, TICKRATE);
+        tick.scheduleAtFixedRate(new TickTask(), 0, tickrate);
     }
 
     /**
@@ -60,6 +60,7 @@ public class Interface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tendencyGroup = new javax.swing.ButtonGroup();
         RobotFrame = new javax.swing.JPanel();
         lights_label = new javax.swing.JLabel();
         addLightButton = new javax.swing.JToggleButton();
@@ -75,6 +76,12 @@ public class Interface extends javax.swing.JFrame {
         ranBotsButton = new javax.swing.JButton();
         speedSlider = new javax.swing.JSlider();
         speedLabel = new javax.swing.JLabel();
+        towards = new javax.swing.JRadioButton();
+        towards1 = new javax.swing.JRadioButton();
+        agressionSlider = new javax.swing.JSlider();
+        agressionLabel = new javax.swing.JLabel();
+        resetBots = new javax.swing.JButton();
+        resetLights = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,7 +149,7 @@ public class Interface extends javax.swing.JFrame {
         pauseBots.setText("Pause Bots");
 
         degreeBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        degreeBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "45", "90", "135", "180", "225", "270", "315", " ", " ", " ", " " }));
+        degreeBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "45", "90", "135", "180", "225", "270", "315" }));
 
         numBotsField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         numBotsField.setText("1");
@@ -166,13 +173,46 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        speedSlider.setMajorTickSpacing(5);
-        speedSlider.setMaximum(60);
+        speedSlider.setMajorTickSpacing(20);
+        speedSlider.setMaximum(240);
         speedSlider.setPaintTicks(true);
-        speedSlider.setValue(10);
+        speedSlider.setValue(60);
+        speedSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                speedSliderStateChanged(evt);
+            }
+        });
 
         speedLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         speedLabel.setText("Speed");
+
+        tendencyGroup.add(towards);
+        towards.setText("Towards Light");
+
+        tendencyGroup.add(towards1);
+        towards1.setSelected(true);
+        towards1.setText("Away from Light");
+
+        agressionSlider.setMajorTickSpacing(80);
+        agressionSlider.setMaximum(800);
+        agressionSlider.setPaintTicks(true);
+        agressionSlider.setValue(200);
+
+        agressionLabel.setText("Agression");
+
+        resetBots.setText("Reset Bots");
+        resetBots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBotsActionPerformed(evt);
+            }
+        });
+
+        resetLights.setText("Reset Lights");
+        resetLights.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetLightsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,30 +221,58 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(RobotFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lights_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bot_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ranLightsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addLightButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(removeLightButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pauseBots, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addBotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(removeBotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ranBotsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lights_label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bot_label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(ranLightsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addLightButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(removeLightButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addBotButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(degreeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(numLightsField)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(ranBotsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(numBotsField)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(degreeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(numBotsField))
-                            .addComponent(numLightsField)))
-                    .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(towards, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(towards1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(speedLabel)
+                                .addGap(10, 10, 10))
+                            .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(speedLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(agressionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                    .addComponent(agressionSlider, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(resetBots)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(resetLights, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pauseBots)
+                            .addComponent(removeBotButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,17 +299,29 @@ public class Interface extends javax.swing.JFrame {
                             .addComponent(addBotButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(degreeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(towards1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(towards)
+                        .addGap(5, 5, 5)
+                        .addComponent(agressionLabel)
+                        .addGap(7, 7, 7)
+                        .addComponent(agressionSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(numBotsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ranBotsButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(removeBotButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pauseBots)
-                        .addGap(109, 109, 109)
+                        .addGap(18, 18, 18)
                         .addComponent(speedLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(resetBots)
+                            .addComponent(resetLights))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -276,7 +356,7 @@ public class Interface extends javax.swing.JFrame {
         if(addLightButton.isSelected())
             lights.add(new Light(evt.getPoint()));
         else if(addBotButton.isSelected())
-            bots.add(new Bot(evt.getPoint(),degrees[degreeBox.getSelectedIndex()]));
+            bots.add(new Bot(evt.getPoint(),degrees[degreeBox.getSelectedIndex()],towards.isSelected(),agressionSlider.getValue()));
         else if(removeLightButton.isSelected()){
             for (ListIterator<Light> iter = lights.listIterator(); iter.hasNext(); ){
                 Light element = iter.next();
@@ -314,12 +394,33 @@ public class Interface extends javax.swing.JFrame {
                 int x = rand.nextInt(WIDTH);
                 int y = rand.nextInt(HEIGHT);
                 int t = rand.nextInt(259);
-                bots.add(new Bot(new Point(x,y),t));
+                bots.add(new Bot(new Point(x,y),t,towards.isSelected(),agressionSlider.getValue()));
+
             }
             RobotFrame.repaint();
         }
         catch(NumberFormatException e){}
     }//GEN-LAST:event_ranBotsButtonActionPerformed
+
+    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
+        try{
+            tickrate = speedSlider.getValue() / 2;
+            tick.wait();
+            tick.cancel();
+            tick.scheduleAtFixedRate(new TickTask(), 0, tickrate);
+        }
+        catch (Exception e){}
+    }//GEN-LAST:event_speedSliderStateChanged
+
+    private void resetBotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBotsActionPerformed
+        bots.clear();
+        RobotFrame.repaint();
+    }//GEN-LAST:event_resetBotsActionPerformed
+
+    private void resetLightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetLightsActionPerformed
+        lights.clear();
+        RobotFrame.repaint();
+    }//GEN-LAST:event_resetLightsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -360,6 +461,8 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JPanel RobotFrame;
     private javax.swing.JToggleButton addBotButton;
     private javax.swing.JToggleButton addLightButton;
+    private javax.swing.JLabel agressionLabel;
+    private javax.swing.JSlider agressionSlider;
     private javax.swing.JLabel bot_label;
     private javax.swing.JComboBox degreeBox;
     private javax.swing.JLabel lights_label;
@@ -370,8 +473,13 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton ranLightsButton;
     private javax.swing.JToggleButton removeBotButton;
     private javax.swing.JToggleButton removeLightButton;
+    private javax.swing.JButton resetBots;
+    private javax.swing.JButton resetLights;
     private javax.swing.JLabel speedLabel;
     private javax.swing.JSlider speedSlider;
+    private javax.swing.ButtonGroup tendencyGroup;
+    private javax.swing.JRadioButton towards;
+    private javax.swing.JRadioButton towards1;
     // End of variables declaration//GEN-END:variables
     
     /**
@@ -384,7 +492,6 @@ public class Interface extends javax.swing.JFrame {
                 try{
                     for (ListIterator<Bot> iter = bots.listIterator(); iter.hasNext(); ){
                         Bot element = iter.next();
-                        System.out.println(speedSlider.getValue());
                         element.updateBot(lights, speedSlider.getValue());
                     }
                     RobotFrame.repaint();

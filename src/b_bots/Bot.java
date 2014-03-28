@@ -22,6 +22,8 @@ public class Bot {
     public double x;
     public double y;
     public double theta;
+    boolean tendency;
+    double agression;
     ArrayList lights = new ArrayList();
     
     /**
@@ -29,10 +31,12 @@ public class Bot {
      * @param p - initial point of robot
      * @param theta - initial rotation of robot
      */
-    public Bot(Point p, int theta){
+    public Bot(Point p, int theta, boolean tendency, double agression){
         this.x = p.x;
         this.y = p.y;
         this.theta = theta;
+        this.tendency = tendency;
+        this.agression = agression;
     }
     
     /**
@@ -44,9 +48,11 @@ public class Bot {
         //locations for sensors 1 and 2
         double s1x = x;
         double s1y = y;
-        double s2x = (x + 2 * Math.cos(Math.toRadians(-theta)));
-        double s2y = (y + 2 * Math.sin(Math.toRadians(-theta)));
-        
+        double s2x = (x + 2 * Math.cos(Math.toRadians(theta + 90)));
+        double s2y = (y + 2 * Math.sin(Math.toRadians(theta + 90)));
+        //System.out.println("s1x: " + s1x + " s1y: " + s1y);
+        //System.out.println("s2x: " + s2x + " s2y: " + s2y);
+       
         //Inesity of light for sensor 1 and 2
         double s1Intensity = 0;
         double s2Intensity = 0;
@@ -64,7 +70,18 @@ public class Bot {
         }
         
         //Determine theta based off s1 intensity and s2 intensity
-        theta = theta + 50*(s1Intensity - s2Intensity);
+        System.out.println(agression);
+        if(!tendency){
+            //Move away from light
+            theta = theta + agression * (s1Intensity - s2Intensity);
+        }
+        else{
+            //Move toward light
+            theta = theta + agression * (s2Intensity - s1Intensity);
+        }
+        
+        
+
               
         //Move bots based on speed and angle
         x = (x + speed/10 * Math.cos(Math.toRadians(theta)));

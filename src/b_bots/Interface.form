@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="tendencyGroup">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -26,36 +30,77 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="RobotFrame" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lights_label" max="32767" attributes="0"/>
-                  <Component id="bot_label" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="ranLightsButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="addLightButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="removeLightButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="pauseBots" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="addBotButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="removeBotButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="ranBotsButton" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="degreeBox" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lights_label" alignment="0" max="32767" attributes="0"/>
+                          <Component id="bot_label" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="ranLightsButton" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="addLightButton" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="removeLightButton" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="addBotButton" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="degreeBox" min="-2" max="-2" attributes="0"/>
+                                  <Component id="numLightsField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="ranBotsButton" min="-2" pref="123" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="numBotsField" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="numLightsField" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="speedSlider" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="towards" min="-2" pref="151" max="-2" attributes="0"/>
+                          <Component id="towards1" min="-2" pref="151" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="speedLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="speedSlider" alignment="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
-                      <Component id="speedLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="agressionLabel" alignment="0" pref="142" max="32767" attributes="0"/>
+                                  <Component id="agressionSlider" alignment="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="resetBots" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="resetLights" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="pauseBots" min="-2" max="-2" attributes="0"/>
+                          <Component id="removeBotButton" min="-2" pref="123" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,7 +108,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="RobotFrame" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -87,18 +132,31 @@
                           <Component id="degreeBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="towards1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="towards" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="agressionLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <Component id="agressionSlider" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="numBotsField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ranBotsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="removeBotButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="pauseBots" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="speedLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="speedSlider" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="resetBots" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="resetLights" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -218,7 +276,7 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="12">
+          <StringArray count="8">
             <StringItem index="0" value="0"/>
             <StringItem index="1" value="45"/>
             <StringItem index="2" value="90"/>
@@ -227,10 +285,6 @@
             <StringItem index="5" value="225"/>
             <StringItem index="6" value="270"/>
             <StringItem index="7" value="315"/>
-            <StringItem index="8" value=" "/>
-            <StringItem index="9" value=" "/>
-            <StringItem index="10" value=" "/>
-            <StringItem index="11" value=" "/>
           </StringArray>
         </Property>
       </Properties>
@@ -275,11 +329,14 @@
     </Component>
     <Component class="javax.swing.JSlider" name="speedSlider">
       <Properties>
-        <Property name="majorTickSpacing" type="int" value="5"/>
-        <Property name="maximum" type="int" value="60"/>
+        <Property name="majorTickSpacing" type="int" value="20"/>
+        <Property name="maximum" type="int" value="240"/>
         <Property name="paintTicks" type="boolean" value="true"/>
-        <Property name="value" type="int" value="10"/>
+        <Property name="value" type="int" value="60"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="speedSliderStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="speedLabel">
       <Properties>
@@ -288,6 +345,52 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Speed"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="towards">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="tendencyGroup"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Towards Light"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="towards1">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="tendencyGroup"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Away from Light"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSlider" name="agressionSlider">
+      <Properties>
+        <Property name="majorTickSpacing" type="int" value="80"/>
+        <Property name="maximum" type="int" value="800"/>
+        <Property name="paintTicks" type="boolean" value="true"/>
+        <Property name="value" type="int" value="200"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="agressionLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Agression"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="resetBots">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reset Bots"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetBotsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="resetLights">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reset Lights"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetLightsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
