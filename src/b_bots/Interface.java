@@ -525,8 +525,8 @@ public class Interface extends javax.swing.JFrame {
             for (ListIterator<Bot> iter = bots.listIterator(); iter.hasNext(); ){
                 Bot element = iter.next();
                 double rotationRequired = Math.toRadians(element.theta+90);
-                double locationX = botpic.getWidth() / 2;
-                double locationY = botpic.getHeight() / 2;
+                double locationX = botAway.getWidth() / 2;
+                double locationY = botAway.getHeight() / 2;
                 AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
                 AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
                 if(element.tendency)

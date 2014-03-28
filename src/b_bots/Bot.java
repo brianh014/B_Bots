@@ -59,10 +59,15 @@ public class Bot {
         for (ListIterator<Light> iter = lights.listIterator(); iter.hasNext(); ){
                 Light element = iter.next();
                 double temp = 100 / Point.distance(s1x, s1y, element.x+LIGHTSIZE/2, element.y+LIGHTSIZE/2);
+                System.out.println(temp);
+                if(temp > 100)
+                    temp = 100;
                 if(temp > s1Intensity)
                     s1Intensity = temp;
                 
                 temp = 100 / Point.distance(s2x, s2y, element.x+LIGHTSIZE/2, element.y+LIGHTSIZE/2);
+                if(temp > 100)
+                    temp = 100;
                 if(temp > s2Intensity)
                     s2Intensity = temp;
         }
@@ -76,10 +81,7 @@ public class Bot {
             //Move toward light
             theta = theta + agression * (s2Intensity - s1Intensity);
         }
-        
-        
-
-              
+ 
         //Move bots based on speed and angle
         x = (x + speed/10 * Math.cos(Math.toRadians(theta)));
         y = (y + speed/10 * Math.sin(Math.toRadians(theta)));
