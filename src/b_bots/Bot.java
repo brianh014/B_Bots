@@ -24,7 +24,9 @@ public class Bot {
     public double y;
     public double theta;
     boolean tendency;
-    double agression;
+    //double agression;
+    double speedLeft;
+    double speedRight;
     ArrayList lights = new ArrayList();
     
     /**
@@ -32,12 +34,14 @@ public class Bot {
      * @param p - initial point of robot
      * @param theta - initial rotation of robot
      */
-    public Bot(Point p, int theta, boolean tendency, double agression){
+    public Bot(Point p, int theta, boolean tendency, double speedLeft, double speedRight){
         this.x = p.x;
         this.y = p.y;
         this.theta = theta;
         this.tendency = tendency;
-        this.agression = agression;
+        this.speedLeft = speedLeft;
+        this.speedRight = speedRight;
+        //this.agression = agression;
     }
     
     /**
@@ -76,11 +80,13 @@ public class Bot {
         //Determine theta based off s1 intensity and s2 intensity
         if(!tendency){
             //Move away from light
-            theta = theta + agression/4 * (s1Intensity - s2Intensity);
+            //theta = theta + agression/4 * (s1Intensity - s2Intensity);
+            theta = theta + (s1Intensity * speedLeft - s2Intensity * speedRight);
         }
         else{
             //Move toward light
-            theta = theta + agression/4 * (s2Intensity - s1Intensity);
+            //theta = theta + agression/4 * (s2Intensity - s1Intensity);
+            theta = theta + (s2Intensity * speedRight - s1Intensity * speedLeft);
         }
  
         //Move bots based on speed and angle
