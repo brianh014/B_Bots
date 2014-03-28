@@ -9,9 +9,14 @@ package b_bots;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.swing.JPanel;
 import java.util.*;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -29,12 +34,17 @@ public class Interface extends javax.swing.JFrame {
     ArrayList bots = new ArrayList();
     
     int[] degrees = {0,45,90,135,180,225,270,315};
+    BufferedImage botpic = null;
     
     /**
      * Creates new form Interface
      */
     public Interface() {
         initComponents();
+        try{
+            botpic = ImageIO.read(Interface.class.getResource("Bot.bmp"));
+        } 
+        catch (IOException e) {System.out.println("Cant load bot img.");}
         tick.scheduleAtFixedRate(new TickTask(), 0, TICKRATE);
     }
 
@@ -300,10 +310,15 @@ public class Interface extends javax.swing.JFrame {
             }
             
             //Draw Bots
-            g2.setPaint(Color.black);
+            
             for (ListIterator<Bot> iter = bots.listIterator(); iter.hasNext(); ){
                 Bot element = iter.next();
-                g2.fill(new Ellipse2D.Double(element.x-BOTSIZE/2, element.y-BOTSIZE/2, BOTSIZE, BOTSIZE));
+                double rotationRequired = Math.toRadians(element.theta+90);
+                double locationX = botpic.getWidth() / 2;
+                double locationY = botpic.getHeight() / 2;
+                AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+                AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+                g2.drawImage(op.filter(botpic,null), (int)element.x-BOTSIZE/2, (int)element.y-BOTSIZE/2, null);
             }
         }
 

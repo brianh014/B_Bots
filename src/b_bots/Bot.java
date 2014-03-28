@@ -37,8 +37,8 @@ public class Bot {
      */
     public void updateBot(){
         //Move bots based on speed and angle
-        x = (x + SPEED * Math.cos(theta * (Math.PI/180)));
-        y = (y + SPEED * Math.sin(theta * (Math.PI/180)));
+        x = (x + SPEED * Math.cos(Math.toRadians(theta)));
+        y = (y + SPEED * Math.sin(Math.toRadians(theta)));
         
         //If out of bounds, move bot to according edge
         if(x+BOTSIZE < 0){
