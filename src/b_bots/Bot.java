@@ -50,8 +50,6 @@ public class Bot {
         double s1y = y;
         double s2x = (x + 2 * Math.cos(Math.toRadians(theta + 90)));
         double s2y = (y + 2 * Math.sin(Math.toRadians(theta + 90)));
-        //System.out.println("s1x: " + s1x + " s1y: " + s1y);
-        //System.out.println("s2x: " + s2x + " s2y: " + s2y);
        
         //Inesity of light for sensor 1 and 2
         double s1Intensity = 0;
@@ -70,7 +68,6 @@ public class Bot {
         }
         
         //Determine theta based off s1 intensity and s2 intensity
-        System.out.println(agression);
         if(!tendency){
             //Move away from light
             theta = theta + agression * (s1Intensity - s2Intensity);
