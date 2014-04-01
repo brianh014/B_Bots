@@ -78,15 +78,26 @@ public class Bot {
         }
         
         //Determine theta based off s1 intensity and s2 intensity
+        double change;
         if(!tendency){
             //Move away from light
-            //theta = theta + agression/4 * (s1Intensity - s2Intensity);
-            theta = theta + (s1Intensity * speedLeft - s2Intensity * speedRight);
+            change = (s1Intensity * speedLeft - s2Intensity * speedRight);
+            if(change > 5)
+                theta = theta + 5;
+            else if(change < -5)
+                theta = theta - 5;
+            else
+                theta += change;
         }
         else{
             //Move toward light
-            //theta = theta + agression/4 * (s2Intensity - s1Intensity);
-            theta = theta + (s2Intensity * speedRight - s1Intensity * speedLeft);
+            change = (s2Intensity * speedRight - s1Intensity * speedLeft);
+            if(change > 5)
+                theta = theta + 5;
+            else if(change < -5)
+                theta = theta - 5;
+            else
+                theta += change;
         }
  
         //Move bots based on speed and angle
