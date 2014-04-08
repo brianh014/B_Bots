@@ -17,8 +17,8 @@ import java.util.ListIterator;
 public class Bot {
     final int BOTSIZE = 14;
     final int LIGHTSIZE = 20;
-    final int WIDTH = 800;
-    final int HEIGHT = 600;
+    final int WIDTH = 800+10;
+    final int HEIGHT = 600+10;
     final int SPEED = 3;
     public double x;
     public double y;
